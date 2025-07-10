@@ -1,0 +1,26 @@
+
+            __                __                
+    __   __/_/___ ___  ____  / /_  _______      
+    \ \ / / / __ `__ \/ __ \/ / / / / ___/      
+     \ V / / / / / / / /_/ / / /_/ (__  )       
+      \_/_/_/ /_/ /_/ ,___/_/\____/____/        
+                   /_/                          
+                                                
+    Keep It Simple, Stupid.                     
+
+   [e]  <empty buffer>
+
+   MRU
+
+   [0]   /home/user/pipe/a2b_1e.c
+   [1]   /home/user/pipe/b2a_1e.c
+   [2]   /home/user/pipe/file_reciever.c
+   [3]   /home/user/pipe/sender.c
+   [4]   /home/user/pipe/test/file_sender.c
+   [5]   /home/user/pipe/pipe_file_recv.c
+   [6]   /home/user/pipe/pipe_file.c
+   [7]   /home/user/select/select_4.c
+   [8]   /home/user/select/select_5.c
+   [9]   /home/user/select/select_2.c
+
+   [q]  <quit>
