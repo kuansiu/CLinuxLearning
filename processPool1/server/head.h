@@ -19,8 +19,8 @@ int epollAdd(int epfd,int fd);
 
 int epollDel(int epfd,int fd);
 
-int recvfd(int sockfd,int *pfdtorecv);
+int recvfd(int sockfd,int *pflag,int *pfdtorecv);
 
-int sendfd(int sockfd,int fdtosend);
+int sendfd(int sockfd,int flag,int fdtosend);
 
 int transFile(int netfd);

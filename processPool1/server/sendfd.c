@@ -1,16 +1,16 @@
 #include "head.h"
 
 
-int sendfd(int sockfd, int fdtosend)
+int sendfd(int sockfd, int flag, int fdtosend)
 {
     struct msghdr hdr;
     //name 填NULL和0
     bzero(&hdr,sizeof(hdr));
-    char buf[] = "Linux";
+    // char buf[] = "Linux";
 
     struct iovec iov[1];
-    iov[0].iov_base = buf;
-    iov[0].iov_len = 5;
+    iov[0].iov_base = &flag;
+    iov[0].iov_len = sizeof(flag);
     hdr.msg_iov = iov;
     hdr.msg_iovlen = 1;
 
@@ -18,6 +18,7 @@ int sendfd(int sockfd, int fdtosend)
     pcmsg->cmsg_len = CMSG_LEN(sizeof(int));
     pcmsg->cmsg_level = SOL_SOCKET;
     pcmsg->cmsg_type = SCM_RIGHTS;
+    //求data首地址-->转int*-->解引用赋值
     *(int *)CMSG_DATA(pcmsg) = fdtosend;
 
     hdr.msg_control = pcmsg;
@@ -28,13 +29,13 @@ int sendfd(int sockfd, int fdtosend)
     return 0;
 }
 
-int recvfd(int sockfd, int *pfdtorecv){
+int recvfd(int sockfd, int *pflag, int *pfdtorecv){
     struct msghdr hdr;
     bzero(&hdr,sizeof(hdr));
-    char buf[6]={0};
+    // char buf[6]={0};
     struct iovec iov[1];
-    iov[0].iov_base = buf;
-    iov[0].iov_len = 5;
+    iov[0].iov_base = pflag;
+    iov[0].iov_len = sizeof(int);
 
     hdr.msg_iov = iov;
     hdr.msg_iovlen = 1;
@@ -47,7 +48,8 @@ int recvfd(int sockfd, int *pfdtorecv){
     hdr.msg_controllen = CMSG_LEN(sizeof(int));
     int ret = recvmsg(sockfd,&hdr,0);
     ERROR_CHECK(ret,-1,"recvmsg");
-    printf("buf = %s,fdtorecv = %d\n",buf,*(int *)CMSG_DATA(pcmsg));
     *pfdtorecv = *(int *)CMSG_DATA(pcmsg);
+    printf("pflag = %d,fdtorecv = %d\n",*pflag,*(int *)CMSG_DATA(pcmsg));
+    
     return 0;
 }
